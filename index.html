@@ -81,7 +81,7 @@
         .menu-dropdown {
             position: absolute;
             top: 100%;
-            left: 0;
+            right: 0; /* تغییر از left به right */
             background: white;
             min-width: 180px;
             border-radius: 8px;
@@ -418,6 +418,7 @@
             height: 18px;
             accent-color: #000000; /* رنگ مشکی برای چک باکس */
             cursor: pointer;
+            margin-left: 4px; /* اضافه کردن فاصله از سمت راست */
         }
         
         .paper-title {
@@ -909,7 +910,6 @@
                 <button class="menu-toggle" onclick="toggleMenu()">
                     <i class="fas fa-bars"></i>
                     منو
-                    <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="menu-dropdown" id="menuDropdown">
                     <a href="#" class="menu-item">مقالات</a>
@@ -1643,5 +1643,3 @@
     </script>
 </body>
 </html>
-
-
