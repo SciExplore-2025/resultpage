@@ -51,9 +51,10 @@
         
         .left-logo {
             justify-content: flex-end;
+            gap: 20px;
         }
         
-        /* منوی سمت راست (اولین آیتم) */
+        /* منوی سمت چپ */
         .header-menu {
             position: relative;
         }
@@ -80,7 +81,7 @@
         .menu-dropdown {
             position: absolute;
             top: 100%;
-            right: 0;
+            left: 0;
             background: white;
             min-width: 180px;
             border-radius: 8px;
@@ -209,14 +210,9 @@
             }
             
             .left-logo {
-                justify-content: flex-end;
-                order: 1;
-            }
-            
-            .right-logo {
-                justify-content: flex-start;
-                order: 2;
+                justify-content: space-between;
                 width: 100%;
+                order: 2;
                 margin-top: 10px;
             }
         }
@@ -906,20 +902,10 @@
 <body>
     <!-- هدر جدید -->
     <header class="main-header">
-        <!-- منوی سمت راست (اولین آیتم) -->
+        <!-- لوگوی سمت راست -->
         <div class="header-part right-logo">
-            <div class="header-menu">
-                <button class="menu-toggle" onclick="toggleMenu()">
-                    <i class="fas fa-bars"></i>
-                    منو
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="menu-dropdown" id="menuDropdown">
-                    <a href="#" class="menu-item">مقالات</a>
-                    <a href="#" class="menu-item">مجلات</a>
-                    <a href="#" class="menu-item">علم‌سنجی</a>
-                    <a href="#" class="menu-item">پروفایل‌ها</a>
-                </div>
+            <div class="logo">
+                <img src="loging icom.png" alt="سای اکسپلور">
             </div>
         </div>
         
@@ -942,8 +928,22 @@
             </div>
         </div>
         
-        <!-- لوگوی سمت چپ (آخرین آیتم) -->
+        <!-- لوگوی سمت چپ + منو -->
         <div class="header-part left-logo">
+            <div class="header-menu">
+                <button class="menu-toggle" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                    منو
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="menu-dropdown" id="menuDropdown">
+                    <a href="#" class="menu-item">مقالات</a>
+                    <a href="#" class="menu-item">مجلات</a>
+                    <a href="#" class="menu-item">علم‌سنجی</a>
+                    <a href="#" class="menu-item">پروفایل‌ها</a>
+                </div>
+            </div>
+            
             <div class="logo">
                 <img src="SX logo.jpg" alt="ورود">
             </div>
