@@ -19,55 +19,165 @@
             background-color: #F6F6F6;
             color: #333;
             line-height: 1.6;
-            padding: 10px;
         }
         
+        /* ========== هدر جدید ========== */
+        .main-header {
+            height: 80px;
+            background: white;
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            border-bottom: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-part {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+        
+        .right-logo {
+            justify-content: flex-start;
+        }
+        
+        .center-search {
+            justify-content: center;
+        }
+        
+        .left-logo {
+            justify-content: flex-end;
+        }
+        
+        .search-box {
+            width: 500px;
+            height: 50px;
+            border: 2px solid #7F7F7F;
+            border-radius: 25px;
+            display: flex;
+            overflow: hidden;
+            background: white;
+            margin-left: 15px;
+        }
+        
+        .search-input {
+            flex: 1;
+            border: none;
+            padding: 0 20px;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        .search-button {
+            width: 50px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: #FCB42D;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .search-links-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .search-link {
+            color: #7F7F7F;
+            font-size: 13px;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        
+        .search-link:hover {
+            color: #E17A41;
+            text-decoration: underline;
+        }
+        
+        .logo {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        
+        /* واکنش‌گرایی هدر */
+        @media (max-width: 900px) {
+            .main-header {
+                padding: 0 20px;
+                height: auto;
+                flex-wrap: wrap;
+                padding: 15px 20px;
+            }
+            
+            .search-box {
+                width: 100%;
+                margin: 10px 0;
+            }
+            
+            .center-search {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 10px;
+            }
+            
+            .search-links-row {
+                margin-top: 8px;
+            }
+        }
+        
+        /* ========== بقیه استایل‌ها ========== */
         .container {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 20px auto;
             background: white;
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
         
-        /* هدر */
-        .header {
+        .page-title {
+            color: #E17A41;
+            font-size: 24px;
+            padding: 25px 30px 15px;
             background: linear-gradient(135deg, #FEEBCA 0%, #FCB42D 100%);
-            padding: 25px 30px;
+            margin: 0;
             border-bottom: 3px solid #E17A41;
         }
         
-        .search-bar {
-            display: flex;
-            margin-bottom: 20px;
-            max-width: 700px;
-        }
-        
-        .search-bar input {
-            flex: 1;
-            padding: 15px 20px;
-            border: 3px solid #E17A41;
-            border-radius: 10px 0 0 10px;
-            font-size: 16px;
-            outline: none;
-        }
-        
-        .search-bar button {
-            background: #E17A41;
-            color: white;
-            border: none;
-            padding: 0 25px;
-            border-radius: 0 10px 10px 0;
-            cursor: pointer;
+        .page-subtitle {
+            color: #7F7F7F;
+            padding: 0 30px 20px;
             font-size: 18px;
-            font-weight: bold;
+            background: linear-gradient(135deg, #FEEBCA 0%, #FCB42D 100%);
+            margin: 0;
         }
         
-        .header-info {
+        .results-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 20px 30px;
+            background: #f9f9f9;
+            border-bottom: 1px solid #eee;
         }
         
         .result-count {
@@ -386,7 +496,7 @@
         }
         
         @media (max-width: 600px) {
-            .header-info {
+            .results-header {
                 flex-direction: column;
                 gap: 15px;
                 align-items: flex-start;
@@ -400,23 +510,56 @@
     </style>
 </head>
 <body>
+    <!-- هدر جدید -->
+    <header class="main-header">
+        <!-- لوگوی سمت راست -->
+        <div class="header-part right-logo">
+            <div class="logo">
+                <img src="SX logo.jpg" alt="سای اکسپلور">
+            </div>
+        </div>
+        
+        <!-- بخش وسط: جست‌وجو + لینک‌ها در یک ردیف -->
+        <div class="header-part center-search">
+            <div style="display: flex; align-items: center;">
+                <!-- باکس جست‌وجو -->
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="جست‌وجوی مقالات، کتاب‌ها، پژوهشگران...">
+                    <button class="search-button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                
+                <!-- لینک‌ها در کنار باکس -->
+                <div class="search-links-row">
+                    <a href="#" class="search-link">جست‌وجوی پیشرفته</a>
+                    <a href="#" class="search-link">راهنمای جست‌وجو</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- لوگوی سمت چپ -->
+        <div class="header-part left-logo">
+            <div class="logo">
+                <img src="SX logo.jpg" alt="ورود">
+            </div>
+        </div>
+    </header>
+
     <div class="container">
-        <!-- هدر -->
-        <div class="header">
-            <h1 style="color: #E17A41; margin-bottom: 15px; font-size: 28px;">سای اکسپلور - نتایج جست‌وجو</h1>
-            <div class="search-bar">
-                <input type="text" placeholder="عنوان، نویسنده یا موضوع را وارد کنید..." id="searchInput" value="سواد اطلاعاتی">
-                <button onclick="searchNow()"><i class="fas fa-search"></i> جست‌وجو</button>
-            </div>
-            <div class="header-info">
-                <div class="result-count" id="resultCount">۲۳۲ نتیجه یافت شد</div>
-                <select class="sort-select" onchange="sortResults(this.value)">
-                    <option>مرتبط‌ترین</option>
-                    <option>جدیدترین</option>
-                    <option>پراستنادترین</option>
-                    <option>بیشترین دانلود</option>
-                </select>
-            </div>
+        <!-- عنوان صفحه -->
+        <h1 class="page-title">سای اکسپلور - نتایج جست‌وجو</h1>
+        <p class="page-subtitle">نمایش نتایج برای "سواد اطلاعاتی"</p>
+        
+        <!-- هدر نتایج -->
+        <div class="results-header">
+            <div class="result-count" id="resultCount">۲۳۲ نتیجه یافت شد</div>
+            <select class="sort-select" onchange="sortResults(this.value)">
+                <option>مرتبط‌ترین</option>
+                <option>جدیدترین</option>
+                <option>پراستنادترین</option>
+                <option>بیشترین دانلود</option>
+            </select>
         </div>
         
         <!-- بخش اصلی -->
@@ -484,8 +627,6 @@
             
             <!-- نتایج -->
             <div class="results">
-                <h2 style="color: #7F7F7F; margin-bottom: 20px; font-size: 20px;">نمایش نتایج برای "سواد اطلاعاتی"</h2>
-                
                 <!-- کارت نتیجه ۱ -->
                 <div class="result-card">
                     <div class="paper-title">مبانی و روش‌های آموزش سواد اطلاعاتی</div>
@@ -571,7 +712,7 @@
         // توابع تعاملی
         
         function searchNow() {
-            const query = document.getElementById('searchInput').value;
+            const query = document.querySelector('.search-input').value;
             document.getElementById('resultCount').textContent = `۲۳۲ نتیجه برای "${query}" یافت شد`;
             showNotification(`جست‌وجو برای "${query}" انجام شد`);
         }
@@ -633,8 +774,17 @@
         // راه‌اندازی اولیه
         document.addEventListener('DOMContentLoaded', function() {
             console.log('صفحه نتایج جست‌وجو بارگیری شد');
+            
+            // فعال کردن جست‌وجو با Enter
+            document.querySelector('.search-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchNow();
+                }
+            });
+            
+            // فعال کردن دکمه جست‌وجو در هدر
+            document.querySelector('.search-button').addEventListener('click', searchNow);
         });
     </script>
 </body>
-
 </html>
