@@ -416,34 +416,176 @@
             margin-left: 8px;
         }
         
-        .tags {
+        /* آیتم‌های آمار (فقط نمایشی) */
+        .stat-item {
             display: flex;
-            gap: 10px;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 8px 10px;
+            border-radius: 6px;
+            position: relative;
+            color: #5A5A5A;
+        }
+        
+        .stat-item:hover {
+            background: #FFF6E7;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(252, 180, 45, 0.15);
+        }
+        
+        .stat-icon {
+            font-size: 18px;
+            margin-bottom: 3px;
+            color: #5A5A5A;
+        }
+        
+        .stat-count {
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .stat-tooltip {
+            position: absolute;
+            bottom: 100%;
+            right: 50%;
+            transform: translateX(50%);
+            background: #333;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+            margin-bottom: 8px;
+            text-align: center;
+            min-width: 160px;
+        }
+        
+        .stat-tooltip:after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            right: 50%;
+            transform: translateX(50%);
+            border: 6px solid transparent;
+            border-top-color: #333;
+        }
+        
+        .stat-item:hover .stat-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* دکمه‌های تعاملی */
+        .action-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 6px;
+            position: relative;
+            color: #5A5A5A;
+        }
+        
+        .action-item:hover {
+            background: #FFF6E7;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(252, 180, 45, 0.15);
+        }
+        
+        .action-icon {
+            font-size: 18px;
+            color: #5A5A5A;
+        }
+        
+        .action-count {
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .action-text {
+            font-size: 11px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .action-item.active {
+            color: #E17A41;
+        }
+        
+        .action-item.active .action-icon {
+            animation: pulse 0.3s ease;
+            color: #E17A41;
+        }
+        
+        .action-item.active .action-count {
+            color: #E17A41;
+        }
+        
+        .action-item.active .action-text {
+            color: #E17A41;
+        }
+        
+        /* آیکون دانلود PDF (سبز و برجسته) */
+        .pdf-download {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 6px;
+            position: relative;
+            background: #F0FFF0;
+            border: 1px solid #D4EDDA;
+        }
+        
+        .pdf-download:hover {
+            background: #E8F5E9;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.2);
+        }
+        
+        .pdf-icon {
+            font-size: 20px;
+            color: #4CAF50;
+        }
+        
+        .pdf-text {
+            font-size: 11px;
+            font-weight: 600;
+            color: #2E7D32;
+        }
+        
+        /* جداکننده */
+        .divider {
+            color: #ddd;
+            font-weight: 300;
+            font-size: 20px;
+            padding: 0 5px;
+        }
+        
+        /* ردیف آمار */
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            padding: 15px 0;
             margin: 20px 0;
             flex-wrap: wrap;
-        }
-        
-        .tag {
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-        }
-        
-        .tag i {
-            margin-left: 5px;
-        }
-        
-        .tag-cite {
-            background: #F6D7C6;
-            color: black;
-        }
-        
-        .tag-h {
-            background: #D3D3D3;
-            color: black;
         }
         
         .actions {
@@ -550,6 +692,12 @@
             background: #ff9800;
         }
         
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+        
         /* واکنش‌گرایی */
         @media (max-width: 900px) {
             .main-content {
@@ -569,6 +717,11 @@
             .action-btn {
                 flex: 1;
                 min-width: 100px;
+            }
+            
+            .stats-row {
+                gap: 15px;
+                padding: 10px 0;
             }
             
             .results-header {
@@ -597,6 +750,14 @@
             .meta-info {
                 flex-direction: column;
                 gap: 10px;
+            }
+            
+            .stats-row {
+                gap: 10px;
+            }
+            
+            .stat-item, .action-item, .pdf-download {
+                padding: 6px 8px;
             }
         }
     </style>
@@ -827,14 +988,64 @@
                         <div class="meta-item"><i class="fas fa-language"></i> فارسی</div>
                     </div>
                     <div class="source"><i class="far fa-bookmark"></i> Information & Communication Quarterly Book Review, جلد ۳، شماره ۹، صفحات ۱۶۷-۱۸۱</div>
-                    <div class="tags">
-                        <div class="tag tag-cite"><i class="fas fa-quote-right"></i> ۱۳ استناد</div>
-                        <div class="tag tag-h"><i class="fas fa-chart-line"></i> h-index: ۲</div>
+                    
+                    <!-- ردیف آمار -->
+                    <div class="stats-row">
+                        <!-- آمار (فقط نمایشی) - خاکستری تیره -->
+                        <div class="stat-item">
+                            <div class="stat-icon"><i class="fas fa-eye"></i></div>
+                            <div class="stat-count">1.2K</div>
+                            <div class="stat-tooltip">بازدید شده</div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon"><i class="fas fa-search"></i></div>
+                            <div class="stat-count">850</div>
+                            <div class="stat-tooltip">جست‌وجو شد</div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon"><i class="fas fa-download"></i></div>
+                            <div class="stat-count">320</div>
+                            <div class="stat-tooltip">دانلود شده</div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon"><i class="fas fa-quote-right"></i></div>
+                            <div class="stat-count">13</div>
+                            <div class="stat-tooltip">استناد شده</div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon"><i class="fas fa-comment"></i></div>
+                            <div class="stat-count">5</div>
+                            <div class="stat-tooltip">دیدگاه‌ها<br><small>برای ارسال نظر لاگین کنید</small></div>
+                        </div>
+                        
+                        <span class="divider">|</span>
+                        
+                        <!-- اقدامات تعاملی -->
+                        <div class="action-item" onclick="toggleLike(this)">
+                            <div class="action-icon"><i class="fas fa-thumbs-up"></i></div>
+                            <div class="action-count">0</div>
+                            <div class="stat-tooltip">پسندیده شده<br><small>برای لایک کردن لاگین کنید</small></div>
+                        </div>
+                        
+                        <div class="action-item" onclick="toggleSave(this)">
+                            <div class="action-icon"><i class="fas fa-bookmark"></i></div>
+                            <div class="action-text">ذخیره</div>
+                            <div class="stat-tooltip">برای ذخیره این منبع در کتابخانه لاگین کنید</div>
+                        </div>
+                        
+                        <!-- دانلود PDF (سبز و برجسته) -->
+                        <div class="pdf-download" onclick="downloadPDF()">
+                            <div class="pdf-icon"><i class="fas fa-file-pdf"></i></div>
+                            <div class="pdf-text">PDF</div>
+                        </div>
                     </div>
+                    
                     <div class="actions">
-                        <button class="action-btn btn-save" onclick="saveItem(this)"><i class="far fa-bookmark"></i> ذخیره</button>
-                        <button class="action-btn btn-pdf" onclick="openPDF()"><i class="fas fa-file-pdf"></i> PDF</button>
-                        <button class="action-btn btn-cite" onclick="showCitation()"><i class="fas fa-quote-left"></i> استناد</button>
+                        <!-- فضای actions خالی شده -->
                     </div>
                 </div>
                 
@@ -855,13 +1066,65 @@
                         <div class="meta-item"><i class="fas fa-language"></i> فارسی</div>
                     </div>
                     <div class="source"><i class="far fa-bookmark"></i> Iranian Journal of Information Processing and Management, جلد ۲۰، شماره ۱، صفحات ۹۷-۱۱۴</div>
-                    <div class="tags">
-                        <div class="tag tag-cite"><i class="fas fa-quote-right"></i> ۱۰ استناد</div>
+                    
+                    <!-- ردیف آمار -->
+                    <div class="stats-row">
+                        <!-- آمار (فقط نمایشی) - خاکستری تیره -->
+                        <div class="stat-item">
+                            <div class="stat-icon"><i class="fas fa-eye"></i></div>
+                            <div class="stat-count">850</div>
+                            <div class="stat-tooltip">بازدید شده</div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon"><i class="fas fa-search"></i></div>
+                            <div class="stat-count">620</div>
+                            <div class="stat-tooltip">جست‌وجو شد</div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon"><i class="fas fa-download"></i></div>
+                            <div class="stat-count">210</div>
+                            <div class="stat-tooltip">دانلود شده</div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon"><i class="fas fa-quote-right"></i></div>
+                            <div class="stat-count">10</div>
+                            <div class="stat-tooltip">استناد شده</div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon"><i class="fas fa-comment"></i></div>
+                            <div class="stat-count">3</div>
+                            <div class="stat-tooltip">دیدگاه‌ها<br><small>برای ارسال نظر لاگین کنید</small></div>
+                        </div>
+                        
+                        <span class="divider">|</span>
+                        
+                        <!-- اقدامات تعاملی -->
+                        <div class="action-item" onclick="toggleLike(this)">
+                            <div class="action-icon"><i class="fas fa-thumbs-up"></i></div>
+                            <div class="action-count">0</div>
+                            <div class="stat-tooltip">پسندیده شده<br><small>برای لایک کردن لاگین کنید</small></div>
+                        </div>
+                        
+                        <div class="action-item" onclick="toggleSave(this)">
+                            <div class="action-icon"><i class="fas fa-bookmark"></i></div>
+                            <div class="action-text">ذخیره</div>
+                            <div class="stat-tooltip">برای ذخیره این منبع در کتابخانه لاگین کنید</div>
+                        </div>
+                        
+                        <!-- دانلود PDF (غیرفعال - دسترسی محدود) -->
+                        <div class="action-item" onclick="showAccessMessage()">
+                            <div class="action-icon"><i class="fas fa-file-pdf"></i></div>
+                            <div class="action-text">PDF</div>
+                            <div class="stat-tooltip">دسترسی محدود<br><small>برای دانلود نیاز به اشتراک دارید</small></div>
+                        </div>
                     </div>
+                    
                     <div class="actions">
-                        <button class="action-btn btn-save" onclick="saveItem(this)"><i class="far fa-bookmark"></i> ذخیره</button>
-                        <button class="action-btn btn-pdf" onclick="openPDF()"><i class="fas fa-file-pdf"></i> PDF</button>
-                        <button class="action-btn btn-cite" onclick="showCitation()"><i class="fas fa-quote-left"></i> استناد</button>
+                        <!-- فضای actions خالی شده -->
                     </div>
                 </div>
                 
@@ -885,13 +1148,64 @@
                         <div class="meta-item"><i class="fas fa-language"></i> انگلیسی</div>
                     </div>
                     <div class="source"><i class="far fa-bookmark"></i> چهارمین کنفرانس بین‌المللی توانمندسازی جامعه در حوزه علوم انسانی</div>
-                    <div class="tags">
-                        <div class="tag tag-cite"><i class="fas fa-quote-right"></i> ۸ استناد</div>
+                    
+                    <!-- ردیف آمار -->
+                    <div class="stats-row">
+                        <!-- آمار (فقط نمایشی) - خاکستری تیره -->
+                        <div class="stat-item">
+                            <div class="stat-icon"><i class="fas fa-eye"></i></div>
+                            <div class="stat-count">720</div>
+                            <div class="stat-tooltip">بازدید شده</div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon"><i class="fas fa-search"></i></div>
+                            <div class="stat-count">480</div>
+                            <div class="stat-tooltip">جست‌وجو شد</div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon"><i class="fas fa-download"></i></div>
+                            <div class="stat-count">180</div>
+                            <div class="stat-tooltip">دانلود شده</div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon"><i class="fas fa-quote-right"></i></div>
+                            <div class="stat-count">8</div>
+                            <div class="stat-tooltip">استناد شده</div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon"><i class="fas fa-comment"></i></div>
+                            <div class="stat-count">2</div>
+                            <div class="stat-tooltip">دیدگاه‌ها<br><small>برای ارسال نظر لاگین کنید</small></div>
+                        </div>
+                        
+                        <span class="divider">|</span>
+                        
+                        <!-- اقدامات تعاملی -->
+                        <div class="action-item" onclick="toggleLike(this)">
+                            <div class="action-icon"><i class="fas fa-thumbs-up"></i></div>
+                            <div class="action-count">0</div>
+                            <div class="stat-tooltip">پسندیده شده<br><small>برای لایک کردن لاگین کنید</small></div>
+                        </div>
+                        
+                        <div class="action-item" onclick="toggleSave(this)">
+                            <div class="action-icon"><i class="fas fa-bookmark"></i></div>
+                            <div class="action-text">ذخیره</div>
+                            <div class="stat-tooltip">برای ذخیره این منبع در کتابخانه لاگین کنید</div>
+                        </div>
+                        
+                        <!-- دانلود PDF (سبز و برجسته) -->
+                        <div class="pdf-download" onclick="downloadPDF()">
+                            <div class="pdf-icon"><i class="fas fa-file-pdf"></i></div>
+                            <div class="pdf-text">PDF</div>
+                        </div>
                     </div>
+                    
                     <div class="actions">
-                        <button class="action-btn btn-save" onclick="saveItem(this)"><i class="far fa-bookmark"></i> ذخیره</button>
-                        <button class="action-btn btn-pdf" onclick="openPDF()"><i class="fas fa-file-pdf"></i> PDF</button>
-                        <button class="action-btn btn-cite" onclick="showCitation()"><i class="fas fa-quote-left"></i> استناد</button>
+                        <!-- فضای actions خالی شده -->
                     </div>
                 </div>
                 
@@ -919,19 +1233,6 @@
             const query = document.querySelector('.search-input').value;
             document.getElementById('resultCount').textContent = `۲۳۲ نتیجه برای "${query}" یافت شد`;
             showNotification(`جست‌وجو برای "${query}" انجام شد`);
-        }
-        
-        function saveItem(button) {
-            button.innerHTML = '<i class="fas fa-check"></i> ذخیره شد';
-            button.style.background = '#4CAF50';
-            button.style.color = 'white';
-            showNotification('مقاله به کتابخانه شما اضافه شد');
-            
-            setTimeout(() => {
-                button.innerHTML = '<i class="far fa-bookmark"></i> ذخیره';
-                button.style.background = '';
-                button.style.color = '';
-            }, 2000);
         }
         
         function openPDF() {
@@ -1055,6 +1356,50 @@
             if (formatChoice) {
                 showNotification(`خروجی ${formatChoice} برای ${selectedTitles.length} عنوان ایجاد شد`, 'success');
             }
+        }
+        
+        // توابع جدید برای آمار و اقدامات
+        function toggleLike(element) {
+            const isLoggedIn = false;
+            
+            if (!isLoggedIn) {
+                alert('برای لایک کردن باید وارد حساب کاربری خود شوید.');
+                return;
+            }
+            
+            element.classList.toggle('active');
+            const isLiked = element.classList.contains('active');
+            const countElement = element.querySelector('.action-count');
+            let currentCount = parseInt(countElement.textContent);
+            
+            if (isLiked) {
+                currentCount += 1;
+            } else {
+                currentCount -= 1;
+            }
+            
+            countElement.textContent = currentCount;
+        }
+        
+        function toggleSave(element) {
+            const isLoggedIn = false;
+            
+            if (!isLoggedIn) {
+                alert('برای ذخیره در کتابخانه باید وارد حساب کاربری خود شوید.');
+                return;
+            }
+            
+            element.classList.toggle('active');
+            const isSaved = element.classList.contains('active');
+            element.querySelector('.action-text').textContent = isSaved ? 'ذخیره شد' : 'ذخیره';
+        }
+        
+        function downloadPDF() {
+            showNotification('در حال دانلود فایل PDF مقاله...');
+        }
+        
+        function showAccessMessage() {
+            alert('این مقاله دسترسی محدود دارد. برای دانلود نیاز به اشتراک دارید.');
         }
         
         // راه‌اندازی اولیه
