@@ -902,14 +902,30 @@
 <body>
     <!-- هدر جدید -->
     <header class="main-header">
-        <!-- لوگوی سمت راست -->
+        <!-- بخش راست: منو + لوگوی ورود -->
         <div class="header-part right-logo">
+            <!-- منو -->
+            <div class="header-menu">
+                <button class="menu-toggle" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                    منو
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="menu-dropdown" id="menuDropdown">
+                    <a href="#" class="menu-item">مقالات</a>
+                    <a href="#" class="menu-item">مجلات</a>
+                    <a href="#" class="menu-item">علم‌سنجی</a>
+                    <a href="#" class="menu-item">پروفایل‌ها</a>
+                </div>
+            </div>
+            
+            <!-- لوگوی ورود -->
             <div class="logo">
-                <img src="loging icom.png" alt="سای اکسپلور">
+                <img src="loging icon.png" alt="ورود">
             </div>
         </div>
         
-        <!-- بخش وسط: جست‌وجو + لینک‌ها در یک ردیف -->
+        <!-- بخش وسط: جست‌وجو -->
         <div class="header-part center-search">
             <div style="display: flex; align-items: center;">
                 <!-- باکس جست‌وجو -->
@@ -928,24 +944,10 @@
             </div>
         </div>
         
-        <!-- لوگوی سمت چپ + منو -->
+        <!-- بخش چپ: لوگوی اصلی -->
         <div class="header-part left-logo">
-            <div class="header-menu">
-                <button class="menu-toggle" onclick="toggleMenu()">
-                    <i class="fas fa-bars"></i>
-                    منو
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="menu-dropdown" id="menuDropdown">
-                    <a href="#" class="menu-item">مقالات</a>
-                    <a href="#" class="menu-item">مجلات</a>
-                    <a href="#" class="menu-item">علم‌سنجی</a>
-                    <a href="#" class="menu-item">پروفایل‌ها</a>
-                </div>
-            </div>
-            
             <div class="logo">
-                <img src="SX logo.jpg" alt="ورود">
+                <img src="SX logo.jpg" alt="سای اکسپلور">
             </div>
         </div>
     </header>
