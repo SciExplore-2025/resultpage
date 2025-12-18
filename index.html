@@ -51,6 +51,72 @@
         
         .left-logo {
             justify-content: flex-end;
+            gap: 20px;
+        }
+        
+        /* منوی سمت چپ */
+        .header-menu {
+            position: relative;
+        }
+        
+        .menu-toggle {
+            background: none;
+            border: none;
+            color: #7F7F7F;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .menu-toggle:hover {
+            background: #FEEBCA;
+            color: #E17A41;
+        }
+        
+        .menu-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 180px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            z-index: 1001;
+            border: 1px solid #eee;
+        }
+        
+        .menu-dropdown.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .menu-item {
+            display: block;
+            padding: 12px 20px;
+            color: #5A5A5A;
+            text-decoration: none;
+            transition: all 0.3s;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        .menu-item:hover {
+            background: #FFF6E7;
+            color: #E17A41;
+            padding-right: 25px;
         }
         
         .search-box {
@@ -141,6 +207,13 @@
             
             .search-links-row {
                 margin-top: 8px;
+            }
+            
+            .left-logo {
+                justify-content: space-between;
+                width: 100%;
+                order: 2;
+                margin-top: 10px;
             }
         }
         
@@ -588,6 +661,61 @@
             flex-wrap: wrap;
         }
         
+        /* دکمه چکیده مقاله */
+        .abstract-toggle {
+            width: 100%;
+            background: #f9f9f9;
+            border: 2px solid #FEEBCA;
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin-top: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+            color: #333;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .abstract-toggle:hover {
+            background: #FFF6E7;
+            border-color: #FCB42D;
+        }
+        
+        .abstract-toggle i {
+            transition: transform 0.3s;
+            color: #E17A41;
+        }
+        
+        .abstract-toggle.active i {
+            transform: rotate(180deg);
+        }
+        
+        .abstract-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            background: #f9f9f9;
+            border-radius: 0 0 10px 10px;
+            border: 2px solid #FEEBCA;
+            border-top: none;
+            margin-top: -10px;
+        }
+        
+        .abstract-content.active {
+            max-height: 500px;
+        }
+        
+        .abstract-text {
+            padding: 25px;
+            color: #333;
+            line-height: 1.8;
+            text-align: justify;
+            font-size: 15px;
+        }
+        
         .actions {
             display: flex;
             gap: 12px;
@@ -759,6 +887,15 @@
             .stat-item, .action-item, .pdf-download {
                 padding: 6px 8px;
             }
+            
+            .abstract-toggle {
+                padding: 12px 15px;
+                font-size: 15px;
+            }
+            
+            .abstract-text {
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -791,8 +928,22 @@
             </div>
         </div>
         
-        <!-- لوگوی سمت چپ -->
+        <!-- لوگوی سمت چپ + منو -->
         <div class="header-part left-logo">
+            <div class="header-menu">
+                <button class="menu-toggle" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                    منو
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="menu-dropdown" id="menuDropdown">
+                    <a href="#" class="menu-item">مقالات</a>
+                    <a href="#" class="menu-item">مجلات</a>
+                    <a href="#" class="menu-item">علم‌سنجی</a>
+                    <a href="#" class="menu-item">پروفایل‌ها</a>
+                </div>
+            </div>
+            
             <div class="logo">
                 <img src="SX logo.jpg" alt="ورود">
             </div>
@@ -886,15 +1037,15 @@
                     <div class="filter-title">سال انتشار (میلادی)</div>
                     <label class="filter-option">
                         <input type="checkbox">
-                        <span class="filter-option-text">۲۰۲۵ <span class="count">(۱۰۶)</span></span>
+                        <span class="filter-option-text">۲۰۲۳-۲۰۲۵ <span class="count">(۱۰۶)</span></span>
                     </label>
                     <label class="filter-option">
                         <input type="checkbox" checked>
-                        <span class="filter-option-text">۲۰۲۴ <span class="count">(۳۰۹)</span></span>
+                        <span class="filter-option-text">۲۰۱۸-۲۰۲۲ <span class="count">(۳۰۹)</span></span>
                     </label>
                     <label class="filter-option">
                         <input type="checkbox">
-                        <span class="filter-option-text">۲۰۲۳ <span class="count">(۸۷)</span></span>
+                        <span class="filter-option-text">قبل از ۲۰۱۸ <span class="count">(۸۷)</span></span>
                     </label>
                     <div class="filter-links">
                         <a href="#" class="filter-link" onclick="showMore('year-miladi')">نمایش بیشتر</a>
@@ -907,15 +1058,15 @@
                     <div class="filter-title">سال انتشار (شمسی)</div>
                     <label class="filter-option">
                         <input type="checkbox">
-                        <span class="filter-option-text">۱۴۰۴ <span class="count">(۱۲۵)</span></span>
+                        <span class="filter-option-text">۱۴۰۲-۱۴۰۴ <span class="count">(۱۲۵)</span></span>
                     </label>
                     <label class="filter-option">
                         <input type="checkbox" checked>
-                        <span class="filter-option-text">۱۴۰۳ <span class="count">(۲۸۰)</span></span>
+                        <span class="filter-option-text">۱۳۹۷-۱۴۰۱ <span class="count">(۲۸۰)</span></span>
                     </label>
                     <label class="filter-option">
                         <input type="checkbox">
-                        <span class="filter-option-text">۱۴۰۲ <span class="count">(۹۵)</span></span>
+                        <span class="filter-option-text">قبل از ۱۳۹۷ <span class="count">(۹۵)</span></span>
                     </label>
                     <div class="filter-links">
                         <a href="#" class="filter-link" onclick="showMore('year-shamsi')">نمایش بیشتر</a>
@@ -1044,6 +1195,17 @@
                         </div>
                     </div>
                     
+                    <!-- دکمه چکیده مقاله -->
+                    <button class="abstract-toggle" onclick="toggleAbstract(this)">
+                        چکیده مقاله
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="abstract-content">
+                        <div class="abstract-text">
+                            این مقاله به بررسی مبانی و روش‌های آموزش سواد اطلاعاتی می‌پردازد. سواد اطلاعاتی به عنوان یکی از مهارت‌های ضروری در عصر اطلاعات شناخته می‌شود که به افراد توانایی شناسایی، ارزیابی و استفاده مؤثر از اطلاعات را می‌دهد. در این پژوهش، روش‌های مختلف آموزش سواد اطلاعاتی در محیط‌های آموزشی رسمی و غیررسمی مورد بررسی قرار گرفته‌اند. یافته‌ها نشان می‌دهند که ترکیب روش‌های سنتی و نوین آموزشی می‌تواند به بهبود سطح سواد اطلاعاتی در میان فراگیران کمک کند. همچنین، نقش فناوری‌های اطلاعاتی و ارتباطی در تسهیل فرآیند آموزش سواد اطلاعاتی مورد تأکید قرار گرفته است. مقاله حاضر پیشنهاداتی برای بهبود برنامه‌های آموزشی سواد اطلاعاتی ارائه می‌دهد.
+                        </div>
+                    </div>
+                    
                     <div class="actions">
                         <!-- فضای actions خالی شده -->
                     </div>
@@ -1120,6 +1282,17 @@
                             <div class="action-icon"><i class="fas fa-file-pdf"></i></div>
                             <div class="action-text">PDF</div>
                             <div class="stat-tooltip">دسترسی محدود<br><small>برای دانلود نیاز به اشتراک دارید</small></div>
+                        </div>
+                    </div>
+                    
+                    <!-- دکمه چکیده مقاله -->
+                    <button class="abstract-toggle" onclick="toggleAbstract(this)">
+                        چکیده مقاله
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="abstract-content">
+                        <div class="abstract-text">
+                            مقاله "سواد اطلاعاتی: یک اولویت نوظهور جهانی" به بررسی اهمیت سواد اطلاعاتی در سطح بین‌المللی می‌پردازد. با توجه به انفجار اطلاعات در عصر حاضر، سواد اطلاعاتی به عنوان یک مهارت حیاتی برای شهروندان قرن بیست و یکم شناخته می‌شود. این پژوهش نشان می‌دهد که چگونه کشورهای مختلف در سراسر جهان در حال توسعه برنامه‌های سواد اطلاعاتی در سیستم‌های آموزشی خود هستند. مقاله بر ضرورت ادغام سواد اطلاعاتی در برنامه‌های درسی مدارس و دانشگاه‌ها تأکید کرده و نمونه‌های موفق از کشورهای پیشرو در این زمینه را ارائه می‌دهد. همچنین، چالش‌های جهانی در آموزش سواد اطلاعاتی و راه‌حل‌های ممکن برای غلبه بر آن‌ها مورد بحث قرار گرفته‌اند.
                         </div>
                     </div>
                     
@@ -1201,6 +1374,17 @@
                         <div class="pdf-download" onclick="downloadPDF()">
                             <div class="pdf-icon"><i class="fas fa-file-pdf"></i></div>
                             <div class="pdf-text">PDF</div>
+                        </div>
+                    </div>
+                    
+                    <!-- دکمه چکیده مقاله -->
+                    <button class="abstract-toggle" onclick="toggleAbstract(this)">
+                        چکیده مقاله
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="abstract-content">
+                        <div class="abstract-text">
+                            مقاله حاضر با عنوان "سواد اطلاعاتی: انقلابی در آموزش" به بررسی تأثیر سواد اطلاعاتی بر تحول سیستم‌های آموزشی می‌پردازد. این پژوهش نشان می‌دهد که چگونه سواد اطلاعاتی می‌تواند پارادایم‌های سنتی آموزش را دگرگون کند. با بهره‌گیری از فناوری‌های نوین اطلاعاتی و ارتباطی، فرآیند آموزش از حالت یک‌سویه به تعاملی تبدیل شده و فراگیران به جای پذیرش منفعلانه اطلاعات، به تولیدکنندگان فعال دانش تبدیل می‌شوند. مقاله به بررسی مطالعات موردی در محیط‌های آموزشی مختلف پرداخته و نشان می‌دهد که ادغام سواد اطلاعاتی در برنامه‌های درسی می‌تواند به توسعه مهارت‌های تفکر انتقادی، حل مسئله و یادگیری مادام‌العمر در میان دانش‌آموزان و دانشجویان منجر شود. چالش‌های پیش‌رو و راهکارهای عملی برای پیاده‌سازی موفق سواد اطلاعاتی در نظام‌های آموزشی نیز در این مقاله مورد بحث قرار گرفته‌اند.
                         </div>
                     </div>
                     
@@ -1402,6 +1586,29 @@
             alert('این مقاله دسترسی محدود دارد. برای دانلود نیاز به اشتراک دارید.');
         }
         
+        // تابع برای منوی هدر
+        function toggleMenu() {
+            const menu = document.getElementById('menuDropdown');
+            menu.classList.toggle('active');
+        }
+        
+        // بستن منو با کلیک خارج از آن
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('menuDropdown');
+            const toggle = document.querySelector('.menu-toggle');
+            
+            if (!menu.contains(event.target) && !toggle.contains(event.target)) {
+                menu.classList.remove('active');
+            }
+        });
+        
+        // تابع برای آکاردئون چکیده مقاله
+        function toggleAbstract(button) {
+            const abstractContent = button.nextElementSibling;
+            button.classList.toggle('active');
+            abstractContent.classList.toggle('active');
+        }
+        
         // راه‌اندازی اولیه
         document.addEventListener('DOMContentLoaded', function() {
             console.log('صفحه نتایج جست‌وجو بارگیری شد');
@@ -1434,4 +1641,3 @@
     </script>
 </body>
 </html>
-
