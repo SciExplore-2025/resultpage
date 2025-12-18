@@ -179,7 +179,12 @@
             border-bottom: 1px solid #eee;
         }
         
-                
+        .results-header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
         .sort-select {
             padding: 10px 20px;
             border: 2px solid #7f7f7f;
@@ -187,6 +192,23 @@
             background: white;
             font-weight: 600;
             cursor: pointer;
+        }
+        
+        .output-btn {
+            padding: 10px 20px;
+            border: 2px solid #7f7f7f;
+            border-radius: 10px;
+            background: white;
+            font-weight: 600;
+            cursor: pointer;
+            color: #333;
+            transition: all 0.3s;
+        }
+        
+        .output-btn.has-selected {
+            background: #FFF6E7;
+            border-color: #FCB42D;
+            color: #000;
         }
         
         /* بخش اصلی */
@@ -220,17 +242,18 @@
             box-shadow: 0 3px 8px rgba(0,0,0,0.05);
         }
         
+        /* تغییرات جدید برای فیلترها */
         .filter-title {
-            color: #7F7F7F;
+            color: #000000; /* مشکی */
             margin-bottom: 12px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
         }
         
         .filter-option {
             display: flex;
             align-items: center;
-            margin: 8px 0;
+            margin: 6px 0;
             padding: 5px;
             cursor: pointer;
             border-radius: 5px;
@@ -243,15 +266,43 @@
         
         .filter-option input {
             margin-left: 10px;
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             accent-color: #FCB42D;
+        }
+        
+        .filter-option-text {
+            color: #5A5A5A; /* خاکستری تیره */
+            font-size: 13px; /* یک شماره ریزتر */
         }
         
         .count {
             color: #7F7F7F;
             margin-right: auto;
-            font-size: 14px;
+            font-size: 12px; /* کوچک‌تر با فونت آپشن */
+        }
+        
+        /* لینک نمایش بیشتر و اعمال فیلتر */
+        .filter-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+        
+        .filter-link {
+            color: #E17A41;
+            font-size: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .filter-link:hover {
+            color: #FCB42D;
+            text-decoration: underline;
         }
         
         /* نتایج */
@@ -269,6 +320,7 @@
             border: 2px solid #FEEBCA;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
         }
         
         .result-card:hover {
@@ -277,11 +329,43 @@
             border-color: #FCB42D;
         }
         
+        .paper-title-container {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .paper-title-checkbox {
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+        
+        .paper-title-checkbox input {
+            width: 18px;
+            height: 18px;
+            accent-color: #000000; /* رنگ مشکی برای چک باکس */
+            cursor: pointer;
+        }
+        
         .paper-title {
             color: #000000;
             font-size: 22px;
-            margin-bottom: 15px;
             line-height: 1.4;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .access-icon {
+            margin-right: 10px;
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4CAF50; /* سبز */
         }
         
         .authors {
@@ -350,11 +434,6 @@
         
         .tag i {
             margin-left: 5px;
-        }
-        
-        .tag-open {
-            background: #FEDA98;
-            color: black;
         }
         
         .tag-cite {
@@ -463,6 +542,14 @@
             z-index: 1000;
         }
         
+        .notification.error {
+            background: #f44336;
+        }
+        
+        .notification.warning {
+            background: #ff9800;
+        }
+        
         /* واکنش‌گرایی */
         @media (max-width: 900px) {
             .main-content {
@@ -483,13 +570,28 @@
                 flex: 1;
                 min-width: 100px;
             }
+            
+            .results-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .results-header-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
         }
         
         @media (max-width: 600px) {
-            .results-header {
+            .results-header-actions {
                 flex-direction: column;
-                gap: 15px;
-                align-items: flex-start;
+                align-items: stretch;
+                gap: 10px;
+            }
+            
+            .sort-select, .output-btn {
+                width: 100%;
             }
             
             .meta-info {
@@ -542,12 +644,15 @@
         <!-- هدر نتایج -->
         <div class="results-header">
             <p class="page-subtitle">نمایش نتایج برای "سواد اطلاعاتی" - ۲۳۲ نتیجه یافت شد</p>
-            <select class="sort-select" onchange="sortResults(this.value)">
-                <option>مرتبط‌ترین</option>
-                <option>جدیدترین</option>
-                <option>پراستنادترین</option>
-                <option>بیشترین دانلود</option>
-            </select>
+            <div class="results-header-actions">
+                <button class="output-btn" id="outputBtn" onclick="getOutput()">خروجی گرفتن</button>
+                <select class="sort-select" onchange="sortResults(this.value)">
+                    <option>مرتبط‌ترین</option>
+                    <option>جدیدترین</option>
+                    <option>پراستنادترین</option>
+                    <option>بیشترین دانلود</option>
+                </select>
+            </div>
         </div>
         
         <!-- بخش اصلی -->
@@ -556,60 +661,147 @@
             <div class="sidebar">
                 <div class="sidebar-title"><i class="fas fa-filter"></i> فیلترهای جست‌وجو</div>
                 
+                <!-- ۱. فیلتر دسترسی -->
                 <div class="filter-box">
-                    <div class="filter-title">نوع مدرک</div>
+                    <div class="filter-title">نوع دسترسی</div>
                     <label class="filter-option">
-                        <input type="checkbox" checked> مقاله کنفرانس
-                        <span class="count">(۹۰۵)</span>
+                        <input type="checkbox" checked>
+                        <span class="filter-option-text">متن کامل <span class="count">(۵۲۳)</span></span>
                     </label>
                     <label class="filter-option">
-                        <input type="checkbox" checked> مقاله ژورنال
-                        <span class="count">(۵۳۲)</span>
+                        <input type="checkbox">
+                        <span class="filter-option-text">فاقد متن <span class="count">(۶۷۵)</span></span>
                     </label>
-                    <label class="filter-option">
-                        <input type="checkbox"> پایان‌نامه
-                        <span class="count">(۱)</span>
-                    </label>
+                    <div class="filter-links">
+                        <a href="#" class="filter-link" onclick="showMore('access')">نمایش بیشتر</a>
+                        <a href="#" class="filter-link" onclick="applyFilter('access')">اعمال فیلتر</a>
+                    </div>
                 </div>
                 
-                <div class="filter-box">
-                    <div class="filter-title">سال انتشار</div>
-                    <label class="filter-option">
-                        <input type="checkbox"> ۲۰۲۳-۲۰۲۵
-                        <span class="count">(۱۰۶)</span>
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox" checked> ۲۰۱۸-۲۰۲۲
-                        <span class="count">(۳۰۹)</span>
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox"> قبل از ۲۰۱۸
-                        <span class="count">(۸۷)</span>
-                    </label>
-                </div>
-                
+                <!-- ۲. فیلتر زبان -->
                 <div class="filter-box">
                     <div class="filter-title">زبان</div>
                     <label class="filter-option">
-                        <input type="checkbox" checked> فارسی
-                        <span class="count">(۱۴۸)</span>
+                        <input type="checkbox" checked>
+                        <span class="filter-option-text">فارسی <span class="count">(۱۴۸)</span></span>
                     </label>
                     <label class="filter-option">
-                        <input type="checkbox"> انگلیسی
-                        <span class="count">(۱۱)</span>
+                        <input type="checkbox">
+                        <span class="filter-option-text">انگلیسی <span class="count">(۱۱)</span></span>
                     </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span class="filter-option-text">عربی <span class="count">(۲)</span></span>
+                    </label>
+                    <div class="filter-links">
+                        <a href="#" class="filter-link" onclick="showMore('language')">نمایش بیشتر</a>
+                        <a href="#" class="filter-link" onclick="applyFilter('language')">اعمال فیلتر</a>
+                    </div>
                 </div>
                 
+                <!-- ۳. فیلتر نوع مدرک -->
                 <div class="filter-box">
-                    <div class="filter-title">دسترسی</div>
+                    <div class="filter-title">نوع مدرک</div>
                     <label class="filter-option">
-                        <input type="checkbox" checked> دسترسی باز
-                        <span class="count">(۵۲۳)</span>
+                        <input type="checkbox" checked>
+                        <span class="filter-option-text">مقاله کنفرانس <span class="count">(۹۰۵)</span></span>
                     </label>
                     <label class="filter-option">
-                        <input type="checkbox"> نیاز به اشتراک
-                        <span class="count">(۶۷۵)</span>
+                        <input type="checkbox" checked>
+                        <span class="filter-option-text">مقاله ژورنال <span class="count">(۵۳۲)</span></span>
                     </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span class="filter-option-text">پایان‌نامه <span class="count">(۱)</span></span>
+                    </label>
+                    <div class="filter-links">
+                        <a href="#" class="filter-link" onclick="showMore('document')">نمایش بیشتر</a>
+                        <a href="#" class="filter-link" onclick="applyFilter('document')">اعمال فیلتر</a>
+                    </div>
+                </div>
+                
+                <!-- ۴. فیلتر سال میلادی -->
+                <div class="filter-box">
+                    <div class="filter-title">سال انتشار (میلادی)</div>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span class="filter-option-text">۲۰۲۳-۲۰۲۵ <span class="count">(۱۰۶)</span></span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" checked>
+                        <span class="filter-option-text">۲۰۱۸-۲۰۲۲ <span class="count">(۳۰۹)</span></span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span class="filter-option-text">قبل از ۲۰۱۸ <span class="count">(۸۷)</span></span>
+                    </label>
+                    <div class="filter-links">
+                        <a href="#" class="filter-link" onclick="showMore('year-miladi')">نمایش بیشتر</a>
+                        <a href="#" class="filter-link" onclick="applyFilter('year-miladi')">اعمال فیلتر</a>
+                    </div>
+                </div>
+                
+                <!-- ۵. فیلتر سال شمسی -->
+                <div class="filter-box">
+                    <div class="filter-title">سال انتشار (شمسی)</div>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span class="filter-option-text">۱۴۰۲-۱۴۰۴ <span class="count">(۱۲۵)</span></span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" checked>
+                        <span class="filter-option-text">۱۳۹۷-۱۴۰۱ <span class="count">(۲۸۰)</span></span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span class="filter-option-text">قبل از ۱۳۹۷ <span class="count">(۹۵)</span></span>
+                    </label>
+                    <div class="filter-links">
+                        <a href="#" class="filter-link" onclick="showMore('year-shamsi')">نمایش بیشتر</a>
+                        <a href="#" class="filter-link" onclick="applyFilter('year-shamsi')">اعمال فیلتر</a>
+                    </div>
+                </div>
+                
+                <!-- ۶. فیلتر نویسنده(گان) -->
+                <div class="filter-box">
+                    <div class="filter-title">نویسنده(گان)</div>
+                    <label class="filter-option">
+                        <input type="checkbox" checked>
+                        <span class="filter-option-text">زینب محمدی <span class="count">(۴۵)</span></span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span class="filter-option-text">سیدحسین میرجلیلی <span class="count">(۳۸)</span></span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span class="filter-option-text">محمود قاسمیان <span class="count">(۲۷)</span></span>
+                    </label>
+                    <div class="filter-links">
+                        <a href="#" class="filter-link" onclick="showMore('authors')">نمایش بیشتر</a>
+                        <a href="#" class="filter-link" onclick="applyFilter('authors')">اعمال فیلتر</a>
+                    </div>
+                </div>
+                
+                <!-- ۷. فیلتر نویسنده یکتا -->
+                <div class="filter-box">
+                    <div class="filter-title">نویسنده یکتا</div>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span class="filter-option-text">حسین حیدری <span class="count">(۵۲)</span></span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span class="filter-option-text">امیر قانعی <span class="count">(۳۳)</span></span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span class="filter-option-text">محسن رضایی <span class="count">(۲۱)</span></span>
+                    </label>
+                    <div class="filter-links">
+                        <a href="#" class="filter-link" onclick="showMore('unique-author')">نمایش بیشتر</a>
+                        <a href="#" class="filter-link" onclick="applyFilter('unique-author')">اعمال فیلتر</a>
+                    </div>
                 </div>
             </div>
             
@@ -617,7 +809,17 @@
             <div class="results">
                 <!-- کارت نتیجه ۱ -->
                 <div class="result-card">
-                    <div class="paper-title">مبانی و روش‌های آموزش سواد اطلاعاتی</div>
+                    <div class="paper-title-container">
+                        <div class="paper-title-checkbox">
+                            <input type="checkbox" class="title-checkbox" onchange="toggleCheckbox(this)" data-title="مبانی و روش‌های آموزش سواد اطلاعاتی">
+                        </div>
+                        <div class="paper-title">
+                            مبانی و روش‌های آموزش سواد اطلاعاتی
+                            <div class="access-icon">
+                                <i class="fas fa-lock-open"></i>
+                            </div>
+                        </div>
+                    </div>
                     <div class="authors"><i class="fas fa-users"></i> زینب محمدی، حسین حیدری، هادی شرایعمقدم، +۵ نویسنده دیگر</div>
                     <div class="meta-info">
                         <div class="meta-item"><i class="far fa-newspaper"></i> مقاله ژورنال</div>
@@ -626,7 +828,6 @@
                     </div>
                     <div class="source"><i class="far fa-bookmark"></i> Information & Communication Quarterly Book Review, جلد ۳، شماره ۹، صفحات ۱۶۷-۱۸۱</div>
                     <div class="tags">
-                        <div class="tag tag-open"><i class="fas fa-lock-open"></i> دسترسی باز</div>
                         <div class="tag tag-cite"><i class="fas fa-quote-right"></i> ۱۳ استناد</div>
                         <div class="tag tag-h"><i class="fas fa-chart-line"></i> h-index: ۲</div>
                     </div>
@@ -639,7 +840,14 @@
                 
                 <!-- کارت نتیجه ۲ -->
                 <div class="result-card">
-                    <div class="paper-title">سواد اطلاعاتی: یک اولویت نوظهور جهانی</div>
+                    <div class="paper-title-container">
+                        <div class="paper-title-checkbox">
+                            <input type="checkbox" class="title-checkbox" onchange="toggleCheckbox(this)" data-title="سواد اطلاعاتی: یک اولویت نوظهور جهانی">
+                        </div>
+                        <div class="paper-title">
+                            سواد اطلاعاتی: یک اولویت نوظهور جهانی
+                        </div>
+                    </div>
                     <div class="authors"><i class="fas fa-users"></i> سیدحسین میرجلیلی، فاطمه اسلامی، محمود قاسمیان</div>
                     <div class="meta-info">
                         <div class="meta-item"><i class="far fa-newspaper"></i> مقاله ژورنال</div>
@@ -648,7 +856,6 @@
                     </div>
                     <div class="source"><i class="far fa-bookmark"></i> Iranian Journal of Information Processing and Management, جلد ۲۰، شماره ۱، صفحات ۹۷-۱۱۴</div>
                     <div class="tags">
-                        <div class="tag" style="background:#ccc; color:#333"><i class="fas fa-lock"></i> دسترسی محدود</div>
                         <div class="tag tag-cite"><i class="fas fa-quote-right"></i> ۱۰ استناد</div>
                     </div>
                     <div class="actions">
@@ -660,7 +867,17 @@
                 
                 <!-- کارت نتیجه ۳ -->
                 <div class="result-card">
-                    <div class="paper-title">سواد اطلاعاتی: انقلابی در آموزش</div>
+                    <div class="paper-title-container">
+                        <div class="paper-title-checkbox">
+                            <input type="checkbox" class="title-checkbox" onchange="toggleCheckbox(this)" data-title="سواد اطلاعاتی: انقلابی در آموزش">
+                        </div>
+                        <div class="paper-title">
+                            سواد اطلاعاتی: انقلابی در آموزش
+                            <div class="access-icon">
+                                <i class="fas fa-lock-open"></i>
+                            </div>
+                        </div>
+                    </div>
                     <div class="authors"><i class="fas fa-users"></i> امیر قانعی، علیرضا اصغری، محسن رضایی</div>
                     <div class="meta-info">
                         <div class="meta-item"><i class="fas fa-file-alt"></i> مقاله کنفرانس</div>
@@ -669,7 +886,6 @@
                     </div>
                     <div class="source"><i class="far fa-bookmark"></i> چهارمین کنفرانس بین‌المللی توانمندسازی جامعه در حوزه علوم انسانی</div>
                     <div class="tags">
-                        <div class="tag tag-open"><i class="fas fa-lock-open"></i> دسترسی باز</div>
                         <div class="tag tag-cite"><i class="fas fa-quote-right"></i> ۸ استناد</div>
                     </div>
                     <div class="actions">
@@ -749,14 +965,96 @@
             showNotification('در حال بارگیری صفحه بعد...');
         }
         
-        function showNotification(message) {
+        function showNotification(message, type = 'success') {
             const notif = document.getElementById('notification');
             notif.textContent = message;
+            notif.className = 'notification ' + type;
             notif.style.display = 'block';
             
             setTimeout(() => {
                 notif.style.display = 'none';
             }, 3000);
+        }
+        
+        // توابع جدید برای فیلترها
+        function showMore(filterType) {
+            event.preventDefault();
+            showNotification(`نمایش گزینه‌های بیشتر برای فیلتر: ${filterType}`);
+            // اینجا می‌توانید modal باز کنید یا گزینه‌های بیشتری نشان دهید
+        }
+        
+        function applyFilter(filterType) {
+            event.preventDefault();
+            showNotification(`فیلتر "${filterType}" اعمال شد`);
+            // اینجا منطق اعمال فیلتر را می‌توانید پیاده‌سازی کنید
+        }
+        
+        // توابع جدید برای انتخاب عناوین
+        function toggleCheckbox(checkbox) {
+            // بررسی می‌کنیم که آیا حداقل یک چک‌باکس انتخاب شده است
+            const hasSelected = checkSelectedTitles();
+            const outputBtn = document.getElementById('outputBtn');
+            
+            if (hasSelected) {
+                outputBtn.classList.add('has-selected');
+            } else {
+                outputBtn.classList.remove('has-selected');
+            }
+        }
+        
+        function checkSelectedTitles() {
+            const checkboxes = document.querySelectorAll('.title-checkbox');
+            let hasSelected = false;
+            
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    hasSelected = true;
+                }
+            });
+            
+            return hasSelected;
+        }
+        
+        function getOutput() {
+            const hasSelected = checkSelectedTitles();
+            const outputBtn = document.getElementById('outputBtn');
+            
+            if (!hasSelected) {
+                // اگر هیچ عنوانی انتخاب نشده باشد
+                showNotification('برای ذخیره سازی حداقل یکی از عناوین را انتخاب کنید', 'error');
+                outputBtn.classList.remove('has-selected');
+                return;
+            }
+            
+            // جمع‌آوری عناوین انتخاب شده
+            const selectedTitles = [];
+            const checkboxes = document.querySelectorAll('.title-checkbox:checked');
+            
+            checkboxes.forEach(checkbox => {
+                selectedTitles.push(checkbox.getAttribute('data-title'));
+            });
+            
+            // نمایش پیام موفقیت
+            showNotification(`${selectedTitles.length} عنوان انتخاب شده برای خروجی آماده شدند`, 'success');
+            
+            // بازنشانی چک‌باکس‌ها
+            document.querySelectorAll('.title-checkbox').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            
+            // بازنشانی دکمه
+            outputBtn.classList.remove('has-selected');
+            
+            // در اینجا می‌توانید داده‌ها را به سرور ارسال کنید یا فرمت خروجی ارائه دهید
+            console.log('عناوین انتخاب شده برای خروجی:', selectedTitles);
+            
+            // نمایش گزینه‌های خروجی (می‌توانید این بخش را به modal یا منو تغییر دهید)
+            const outputFormats = ['PDF', 'Word', 'Excel', 'BibTeX', 'RIS'];
+            const formatChoice = prompt(`لطفا فرمت خروجی را انتخاب کنید:\n${outputFormats.join(', ')}\n\n${selectedTitles.length} عنوان انتخاب شده اند.`, 'PDF');
+            
+            if (formatChoice) {
+                showNotification(`خروجی ${formatChoice} برای ${selectedTitles.length} عنوان ایجاد شد`, 'success');
+            }
         }
         
         // راه‌اندازی اولیه
@@ -772,24 +1070,22 @@
             
             // فعال کردن دکمه جست‌وجو در هدر
             document.querySelector('.search-button').addEventListener('click', searchNow);
+            
+            // فعال کردن چک‌باکس‌های فیلتر
+            document.querySelectorAll('.filter-option input').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const filterBox = this.closest('.filter-box');
+                    const filterTitle = filterBox.querySelector('.filter-title').textContent;
+                    const optionText = this.parentElement.querySelector('.filter-option-text').textContent.split(' ')[0];
+                    const action = this.checked ? 'انتخاب شد' : 'لغو شد';
+                    console.log(`فیلتر "${filterTitle}" - گزینه "${optionText}" ${action}`);
+                });
+            });
+            
+            // بررسی وضعیت اولیه دکمه خروجی
+            const outputBtn = document.getElementById('outputBtn');
+            outputBtn.classList.remove('has-selected');
         });
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
